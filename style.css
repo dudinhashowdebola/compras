@@ -1,0 +1,57 @@
+body {
+    background-color: #a3d2fc; /* Azul claro suave */
+    font-family: 'Arial', sans-serif; /* Fonte mais moderna */
+    color: #333; /* Cor do texto */
+}
+
+h1 {
+    color: #ff69b4; /* Rosa mais vibrante para o título */
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 2px rgba(255, 105, 180, 0.5); /* Sombra para dar destaque */
+}
+
+h2 {
+    color: #ff6f61; /* Cor do subtítulo */
+    margin-top: 30px;
+}
+
+.container {
+    max-width: 600px; /* Largura máxima da página */
+    margin-top: 40px;
+    padding: 20px;
+    background: #ffffff; /* Fundo branco para contraste */
+    border-radius: 15px; /* Bordas mais arredondadas */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Sombra mais suave */
+    border: 2px solid #ff6f61; /* Borda colorida */
+}
+
+.input-group {
+    margin-bottom: 20px; /* Espaçamento entre os campos */
+}
+
+.btn {
+    background-color: #ff69b4; /* Rosa vibrante para os botões */
+    border: none; /* Remove a borda padrão */
+    border-radius: 8px; /* Bordas arredondadas nos botões */
+    transition: background-color 0.3s, transform 0.2s; /* Efeitos de transição */
+}
+
+.btn:hover {
+    background-color: #ff1493; /* Rosa mais escuro ao passar o mouse */
+    transform: scale(1.05); /* Leve aumento ao passar o mouse */
+}
+
+.list-group-item {
+    display: flex;
+    align-items: center; /* Centraliza verticalmente */
+    justify-content: space-between; /* Espaço entre imagem e botão */
+    padding: 10px; /* Espacamento interno */
+    border: 1px solid #ffb6c1; /* Borda rosa clara */
+    border-radius: 10px; }
+ defaultproducts.img {
+    width: 50px; /* Largura fixa */
+    height: 50px; /* Altura fixa */
+    object-fit: cover; /* Mantém a proporção e cobre a área */
+    margin-right: 10px; /* Espaçamento entre imagem e texto */
+    border-radius: 10px; /* Bordas arredondadas nas imagens */
+}

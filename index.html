@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Mercado</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css"> <!-- Referência ao CSS externo -->
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">Lista de Compras</h1>
+        <div class="input-group product-input">
+            <input type="text" id="productInput" class="form-control" placeholder="Adicionar produto">
+            <input type="text" id="imageInput" class="form-control" placeholder="URL da imagem">
+            <div class="input-group-append">
+                <button id="addButton" class="btn btn-primary">Adicionar</button>
+            </div>
+        </div>
+        
+        <h2>Produtos:</h2>
+        <ul id="productList" class="list-group"></ul>
+        
+        <button id="removeAllButton" class="btn btn-danger mt-3">Remover Todos</button>
+    </div>
+
+    <script>
+      
+        const defaultProducts = [
+            { name: "Arroz", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtuZi4m2d8GbtL0qofiikq3GIZknTG1U6P0Q&s" },
+            { name: "Pão", image: "https://www.estadao.com.br/resizer/v2/BSRFGPQARVI7ZHFPKHOT4RBE54.jpg?quality=80&auth=0fb141aba7938edf2932f0dafbc63165c3151231df494465528ad86ffa466ad9&width=720&height=503&focal=0,0" },
+            { name: "Carne", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQH-L1b4YVAZBOfB-6_ea16fI4-1m_SFQrjMw&s" },
+            { name: "Batata", image: "https://io.convertiez.com.br/m/superpaguemenos/shop/products/images/13626/medium/batata-kg_59346.jpg" }
+        ];
+
+        // Função para carregar os produtos armazenados no localStorage
+        function loadProducts() {
+            const products = JSON.parse(localStorage.getItem('products')) || defaultProducts;
+            const productList = document.getElementById('productList');
+            productList.innerHTML = ''; // Limpa a lista antes de adicionar
+
+            if (products.length === 0) {
+                const emptyMessage = document.createElement('li');
+                emptyMessage.className = 'list-group-item text-center';
+                emptyMessage.textContent = 'Nenhum produto adicionado ainda.';
+                productList.appendChild(emptyMessage);
+            } else {
+                products.forEach((product, index) => {
+                    const listItem = document.createElement('li');
+                    listItem.className = 'list-group-item d-flex align-items-center product-item';
+
+                    const img = document.createElement('img');
+                    img.src = product.image;
+                    img.alt = product.name;
+
+                    const name = document.createElement('span');
+                    name.textContent = product.name;
+
+                    const removeButton = document.createElement('button');
+                    removeButton.textContent = 'Remover';
+                    removeButton.className = 'btn btn-danger btn-sm ml-auto';
+                    removeButton.onclick = () => removeProduct(index);
+
+                    listItem.appendChild(img);
+                    listItem.appendChild(name);
+                    listItem.appendChild(removeButton);
+                    productList.appendChild(listItem);
+                });
+            }
+        }
+
+        // Função para adicionar um novo cantor
+        function addProduct() {
+            const productInput = document.getElementById('productInput');
+            const imageInput = document.getElementById('imageInput');
+            const productName = productInput.value.trim();
+            const imageUrl = imageInput.value.trim();
+
+            if (productName && imageUrl) {
+                const products = JSON.parse(localStorage.getItem('products')) || [];
+                products.push({ name: productName, image: imageUrl });
+                localStorage.setItem('products', JSON.stringify(products));
+                productInput.value = '';
+                imageInput.value = '';
+                loadProducts();
+                productInput.focus(); // Foca no campo de entrada
+            } else {
+                alert("Por favor, insira um nome de um produto e uma URL de imagem.");
+            }
+        }
+
+        // Função para remover um cantor
+        function removeProduct(index) {
+            const products = JSON.parse(localStorage.getItem('products')) || [];
+            products.splice(index, 1);
+            localStorage.setItem('products', JSON.stringify(products));
+            loadProducts();
+        }
+
+        // Função para remover todos os cantores
+        function removeAllProducts() {
+            localStorage.removeItem('products');
+            loadProducts();
+        }
+
+        document.getElementById('addButton').addEventListener('click', addProduct);
+        document.getElementById('removeAllButton').addEventListener('click', removeAllProducts);
+        
+        // Carrega os produtos ao inicializar a página
+        loadProducts();
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
